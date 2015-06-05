@@ -1,5 +1,5 @@
 // Enemies our player must avoid
-var Enemy = function(y) {
+var Enemy = function(row) {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
 
@@ -8,13 +8,31 @@ var Enemy = function(y) {
     this.sprite = 'images/enemy-bug.png';
     
     // Enemy position
-    this.x = Math.random() * (500 - 0) + 0;
-    this.y = y;
+    this.x = Math.random() * (900 - 0) + 0;
+    switch(row) {
+        case 1:
+            this.y = 60;
+            break;
+        case 2:
+            this.y = 140;
+            break;
+        case 3:
+            this.y = 220;
+            break;
+        case 4:
+            this.y = 300;
+            break;
+        case 5:
+            this.y = 380;
+            break;
+        default:
+            this.y = 60;
+    }
 
     //Enemy dimensions
-    this.right = 50;
+    this.right = 38;
     this.left = 0;
-    this.bottom = 50;
+    this.bottom = 38;
     this.top = 0;
 }
 
@@ -25,14 +43,13 @@ Enemy.prototype.update = function(dt) {
     // which will ensure the game runs at the same speed for
     // all computers.
     this.x = this.x + (100 * dt);
-    console.log(this.left);
     this.collision();
 }
 
 // Draw the enemy on the screen, required method for game
 Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-    if (this.x > 500) {
+    if (this.x > 980) {
         this.x = -100;
     }
 }
@@ -56,10 +73,10 @@ Enemy.prototype.collision = function() {
 var Player = function() {
 
     //-> Player position
-    this.x = 200;
-    this.y = 390;
+    this.x = 500;
+    this.y = 590;
 
-    //-> Playper dimensions
+    //-> Player dimensions
     this.right = 77;
     this.left = -15;
     this.bottom = 55;
@@ -79,8 +96,8 @@ Player.prototype.render = function() {
 };
 
 Player.prototype.restartPosition = function() {
-    player.x = 200;
-    player.y = 390;
+    player.x = 500;
+    player.y = 590;
 }
 
 Player.prototype.handleInput = function(key) {
@@ -109,7 +126,7 @@ Player.prototype.handleInput = function(key) {
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
 
-var allEnemies = [new Enemy(60), new Enemy(140), new Enemy(220),new Enemy(60), new Enemy(140), new Enemy(220),]
+var allEnemies = [new Enemy(1), new Enemy(2), new Enemy(1),new Enemy(3), new Enemy(4), new Enemy(5), new Enemy(3), new Enemy(5), new Enemy(4)]
 
 var player = new Player();
 
